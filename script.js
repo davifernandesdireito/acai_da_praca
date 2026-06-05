@@ -7,7 +7,7 @@ const products = [
     name: "Açaí Premium 500ml",
     desc: "Porção individual cremosa para consumir na hora.",
     price: 13,
-    img: "assets/produtos.jp"
+    img: "assets/produtos.jpg"
   },
   {
     name: "Açaí Premium 1L",
@@ -19,7 +19,7 @@ const products = [
     name: "Açaí Premium 2L",
     desc: "Açaí puro para família e dias de jogo.",
     price: 50,
-    img: "assets/produtos.jp"
+    img: "assets/produtos.jpg"
   },
   {
     name: "Polpa de Açaí congelada 5L",
@@ -55,19 +55,19 @@ const products = [
     name: "Polpa de Cupuaçu - 1 unidade",
     desc: "Polpa de cupuaçu natural, ideal para sucos, vitaminas e sobremesas.",
     price: 18,
-    img: "assets/polpa_cupuaçu.png"
+    img: "assets/polpa_cupuaçu.jgpeg"
   },
   {
     name: "Promoção 5 Polpas de Cupuaçu",
     desc: "Leve 5 polpas de cupuaçu por um preço especial.",
     price: 80,
-    img: "assets/polpa_cupuaçu.png"
+    img: "assets/polpa_cupuaçu.jgpeg"
   },
   {
     name: "Promoção 10 Polpas de Cupuaçu",
     desc: "Leve 10 polpas de cupuaçu e economize ainda mais.",
     price: 150,
-    img: "assets/polpa_cupuaçu.png"
+    img: "assets/polpa_cupuaçu.jgpeg"
   }
 ];
 

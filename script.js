@@ -51,6 +51,24 @@ const products = [
     price: 250,
     img: "assets/logo.jpg"
   }
+    {
+    name: "Polpa de Cupuaçu - 1 unidade",
+    desc: "Polpa de cupuaçu natural, ideal para sucos, vitaminas e sobremesas.",
+    price: 18,
+    img: "assets/polpa_cupuaçu.png"
+  },
+  {
+    name: "Promoção 5 Polpas de Cupuaçu",
+    desc: "Leve 5 polpas de cupuaçu por um preço especial.",
+    price: 80,
+    img: "assets/polpa_cupuaçu.png"
+  },
+  {
+    name: "Promoção 10 Polpas de Cupuaçu",
+    desc: "Leve 10 polpas de cupuaçu e economize ainda mais.",
+    price: 150,
+    img: "assets/polpa_cupuaçu.png"
+  }
 ];
 
 let cart = [];

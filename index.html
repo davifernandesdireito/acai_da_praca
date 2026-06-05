@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Açaí da Praça | O melhor açaí de Mãe do Rio - PA</title>
+  <meta name="description" content="Açaí da Praça: açaí 100% puro, sem mistura, combos paraenses e entrega sob consulta para todo o Brasil." />
+  <link rel="preload" as="image" href="assets/flyer_copa.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="topbar">
+    <strong>🚚 Entrega em Mãe do Rio e envio para todo o Brasil sob consulta</strong>
+    <span>📍 Próximo ao Ginásio de Esportes,Rua Padre Saturnino Cunha 475 Mãe do Rio - PA</span>
+  </div>
+
+  <header class="header" id="inicio">
+    <a class="brand" href="#inicio" aria-label="Açaí da Praça">
+      <img src="assets/logo.jpg" alt="Logo Açaí da Praça" />
+      <div>
+        <strong>Açaí da Praça</strong>
+        <small>Mãe do Rio - Pará</small>
+      </div>
+    </a>
+
+    <button class="menu-btn" aria-label="Abrir menu" onclick="toggleMenu()">☰</button>
+
+    <nav class="nav" id="nav">
+      <a href="#produtos">Produtos</a>
+      <a href="#entrega">Entrega Brasil</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+      <button class="cart-button" onclick="toggleCart()">🛒 Carrinho <span id="cartCount">0</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <span class="eyebrow">🏆 Especial Copa do Mundo</span>
+        <h1>Copa do Mundo é com <span>Açaí da Praça!</span></h1>
+        <p>Torça pelo Brasil com o verdadeiro açaí raiz do Pará: puro, forte, cremoso e cheio de energia.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#produtos">Ver produtos</a>
+          <a class="btn secondary" id="whatsHero" href="#" target="_blank" rel="noopener">Pedir no WhatsApp</a>
+        </div>
+        <div class="stats">
+          <div><strong>100%</strong><span>Puro</span></div>
+          <div><strong>0</strong><span>Sem mistura</span></div>
+          <div><strong>BR</strong><span>Envio sob consulta</span></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img src="assets/owner.jpg" alt="Proprietário do Açaí da Praça" />
+        <div class="owner-badge">
+          <strong>José Oilimes De Lima Silva</strong>
+          <span>Empresário do Ramo de Açaí</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section intro">
+      <div class="intro-image">
+        <img src="assets/produtos.jpg" alt="Açaí com acompanhamentos regionais" />
+      </div>
+      <div class="intro-text">
+        <span class="eyebrow">Sabor paraense de verdade</span>
+        <h2>Açaí puro para sua casa, evento ou revenda</h2>
+        <p>Trabalhamos com açaí de qualidade, opções para consumo imediato, combos com acompanhamentos regionais e kits congelados para envio sob consulta.</p>
+        <ul class="checks">
+          <li>Açaí 100% puro e fresquinho</li>
+          <li>Combinações com camarão, peixe frito, charque e farinha</li>
+          <li>Atendimento rápido pelo WhatsApp</li>
+          <li>Condições para encomendas e revenda</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section products" id="produtos">
+      <div class="section-title">
+        <span class="eyebrow">Cardápio online</span>
+        <h2>Escolha seu pedido</h2>
+        <p>Adicione os itens ao carrinho e finalize direto no WhatsApp.</p>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="delivery" id="entrega">
+      <div>
+        <span class="eyebrow">Entrega para todo o Brasil</span>
+        <h2>Envio nacional sob consulta</h2>
+        <p>Para pedidos fora de Mãe do Rio - PA, fazemos cotação de frete, embalagem térmica e prazo conforme a quantidade e o destino.</p>
+        <form class="quote-form" onsubmit="sendQuote(event)">
+          <input id="quoteName" type="text" placeholder="Seu nome" required />
+          <input id="quoteCity" type="text" placeholder="Cidade/Estado" required />
+          <input id="quoteCep" type="text" placeholder="CEP" required />
+          <select id="quoteQty" required>
+            <option value="">Quantidade desejada</option>
+            <option>1 a 5 litros</option>
+            <option>6 a 10 litros</option>
+            <option>Acima de 10 litros</option>
+            <option>Pedido para revenda</option>
+          </select>
+          <button class="btn primary" type="submit">Consultar entrega</button>
+        </form>
+      </div>
+      <div class="delivery-card">
+        <h3>Como funciona?</h3>
+        <ol>
+          <li>Você escolhe os produtos.</li>
+          <li>Envia o pedido pelo WhatsApp.</li>
+          <li>Confirmamos estoque, frete e prazo.</li>
+          <li>Seu açaí segue bem embalado.</li>
+        </ol>
+        <p class="note">*Envio nacional depende da disponibilidade, distância, conservação do produto e confirmação da logística.</p>
+      </div>
+    </section>
+
+    <section class="section cup">
+      <div class="cup-card">
+        <img src="assets/flyer_copa.jpg" alt="Campanha Açaí da Praça na Copa do Mundo" />
+      </div>
+      <div class="cup-text">
+        <span class="eyebrow">Promoção da torcida</span>
+        <h2>A energia da torcida começa aqui</h2>
+        <p>Monte seu combo para assistir aos jogos: açaí cremoso, farinha, camarão, peixe frito ou charque. Ideal para família, amigos e eventos.</p>
+        <a class="btn primary" href="#produtos">Montar meu combo</a>
+      </div>
+    </section>
+
+    <section class="section about" id="sobre">
+      <div class="about-card">
+        <h2>Por que escolher o Açaí da Praça?</h2>
+        <div class="feature-grid">
+          <article>
+            <span>🌿</span>
+            <h3>100% Natural</h3>
+            <p>Produto preparado com higiene para manter o sabor e qualidade do açaí paraense.</p>
+          </article>
+          <article>
+            <span>⚡</span>
+            <h3>Energia de verdade</h3>
+            <p>Perfeito para o almoço, lanche, treino, eventos e dias de jogo.</p>
+          </article>
+          <article>
+            <span>💪</span>
+            <h3>Sabor forte</h3>
+            <p>Açaí encorpado, escuro e cremoso, do jeito que o paraense gosta.</p>
+          </article>
+          <article>
+            <span>🏆</span>
+            <h3>Orgulho paraense</h3>
+            <p>Atendimento local com tradição, qualidade e carinho em cada pedido.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contato">
+      <div>
+        <span class="eyebrow">Fale conosco</span>
+        <h2>Faça seu pedido agora</h2>
+        <p>Use o formulário para montar uma mensagem rápida e enviar no WhatsApp.</p>
+      </div>
+      <form class="contact-form" onsubmit="sendContact(event)">
+        <input id="contactName" type="text" placeholder="Seu nome" required />
+        <input id="contactPhone" type="tel" placeholder="Seu telefone" />
+        <textarea id="contactMsg" rows="4" placeholder="Escreva seu pedido ou dúvida" required></textarea>
+        <button class="btn primary" type="submit">Enviar mensagem</button>
+      </form>
+    </section>
+  </main>
+
+  <aside class="cart" id="cart">
+    <div class="cart-header">
+      <h2>Meu pedido</h2>
+      <button onclick="toggleCart()" aria-label="Fechar carrinho">×</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <p>Total estimado: <strong id="cartTotal">R$ 0,00</strong></p>
+      <small>Valores editáveis. Confirme disponibilidade e entrega pelo WhatsApp.</small>
+      <button class="btn primary full" onclick="sendOrder()">Finalizar no WhatsApp</button>
+    </div>
+  </aside>
+
+  <button class="floating-whats" onclick="openWhatsApp('Olá! Quero fazer um pedido no Açaí da Praça.')">💬</button>
+
+  <footer class="footer">
+    <div>
+      <strong>Açaí da Praça</strong>
+      <p>O verdadeiro açaí raiz do Pará.</p>
+    </div>
+    <div>
+      <p>📍 Próximo ao Ginásio de Esportes • Mãe do Rio - PA</p>
+      <p>📲 WhatsApp: (91) 9 9321-7906 • Instagram: @acaidapracamdr</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

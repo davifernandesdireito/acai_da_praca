@@ -7,7 +7,7 @@ const products = [
     name: "Açaí Premium 500ml",
     desc: "Porção individual cremosa para consumir na hora.",
     price: 13,
-    img: "assets/acai_placeholder.svg"
+    img: "assets/produtos.jp"
   },
   {
     name: "Açaí Premium 1L",
@@ -19,7 +19,7 @@ const products = [
     name: "Açaí Premium 2L",
     desc: "Açaí puro para família e dias de jogo.",
     price: 50,
-    img: "assets/acai_placeholder.svg"
+    img: "assets/produtos.jp"
   },
   {
     name: "Polpa de Açaí congelada 5L",

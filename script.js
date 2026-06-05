@@ -50,7 +50,7 @@ const products = [
     desc: "Para revendedores, eventos e pedidos maiores.",
     price: 250,
     img: "assets/logo.jpg"
-  }
+  },
     {
     name: "Polpa de Cupuaçu - 1 unidade",
     desc: "Polpa de cupuaçu natural, ideal para sucos, vitaminas e sobremesas.",

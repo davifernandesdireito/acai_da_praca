@@ -157,11 +157,9 @@ function openWhatsApp(message){
   window.open(url, "_blank", "noopener");
 }
 
-function sendOrder(){
-  if(cart.length === 0){
-    openWhatsApp("Olá! Quero fazer um pedido no Açaí da Praça.");
-    return;
-  }
+const formaPagamento = pegarFormaPagamento();
+
+const message = `Olá! Quero fazer este pedido no Açaí da Praça:%0A%0A${line.join("%0A")}%0A%0ATotal estimado: ${formatMoney(total)}%0AForma de pagamento: ${formaPagamento}%0A%0APode confirmar disponibilidade e entrega?`;
 
   const lines = cart.map(item => `• ${item.qty}x ${item.name} - ${formatMoney(item.qty*item.price)}`);
   const total = cart.reduce((sum,item)=>sum+(item.qty*item.price),0);
@@ -196,3 +194,28 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCart();
   document.getElementById("whatsHero").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá! Quero fazer um pedido no Açaí da Praça.")}`;
 });
+
+function abrirLogin() {
+  document.getElementById("loginModal").style.display = "flex";
+}
+
+function fecharLogin() {
+  document.getElementById("loginModal").style.display = "none";
+}
+
+function fazerLogin() {
+  const email = document.getElementById("emailLogin").value;
+  const senha = document.getElementById("senhaLogin").value;
+
+  if (email === "cliente@acaidapraca.com" && senha === "123456") {
+    alert("Login realizado com sucesso!");
+    fecharLogin();
+  } else {
+    alert("E-mail ou senha incorretos. Use o login de teste.");
+  }
+}
+
+function pegarFormaPagamento() {
+  const pagamentoSelecionado = document.querySelector('input[name="pagamento"]:checked');
+  return pagamentoSelecionado ? pagamentoSelecionado.value : "Não informado";
+}

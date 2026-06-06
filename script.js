@@ -18,6 +18,13 @@ const DEMO_LOGIN = {
   cidade: ""
 };
 
+// Login demonstrativo do administrador para portfólio.
+// ATENÇÃO: em site estático este login não é seguro para uso real.
+const ADMIN_LOGIN = {
+  email: "admin@acaidapraca.com",
+  senha: "admin123"
+};
+
 const products = [
   {
     name: "Açaí Premium 500ml",
@@ -232,6 +239,13 @@ function sendOrder() {
     "Pode confirmar disponibilidade e entrega?"
   ].join("\n");
 
+  salvarPedidoRelatorio({
+    formaPagamento,
+    cliente,
+    items: cart,
+    total
+  });
+
   openWhatsApp(message);
 }
 
@@ -402,7 +416,15 @@ function cadastrarCliente() {
     return;
   }
 
-  const novoCliente = { nome, telefone, email, senha, endereco, cidade };
+  const novoCliente = {
+    nome,
+    telefone,
+    email,
+    senha,
+    endereco,
+    cidade,
+    cadastradoEm: new Date().toLocaleString("pt-BR")
+  };
   clientes.push(novoCliente);
   salvarClientesCadastrados(clientes);
   setClienteLogado(novoCliente);
@@ -448,11 +470,262 @@ function configurarModalLogin() {
   });
 }
 
+
+// ==============================
+// PAINEL ADMINISTRATIVO DEMONSTRATIVO
+// ==============================
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function getPedidosRegistrados() {
+  try {
+    const pedidos = JSON.parse(localStorage.getItem("acaiPedidos") || "[]");
+    return Array.isArray(pedidos) ? pedidos : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function salvarPedidosRegistrados(pedidos) {
+  localStorage.setItem("acaiPedidos", JSON.stringify(pedidos));
+}
+
+function salvarPedidoRelatorio({ formaPagamento, cliente, items, total }) {
+  const pedidos = getPedidosRegistrados();
+  const pedido = {
+    id: String(Date.now()),
+    data: new Date().toLocaleString("pt-BR"),
+    clienteNome: cliente?.nome || "Não cadastrado",
+    clienteTelefone: cliente?.telefone || "Não informado",
+    clienteEmail: cliente?.email || "Não informado",
+    clienteEndereco: cliente?.endereco || "Não informado",
+    clienteCidade: cliente?.cidade || "Não informado",
+    formaPagamento: formaPagamento || "Não informado",
+    itens: (items || []).map(item => ({
+      nome: item.name,
+      quantidade: item.qty,
+      preco: item.price,
+      subtotal: item.qty * item.price
+    })),
+    total: Number(total || 0),
+    status: "Enviado para WhatsApp"
+  };
+
+  pedidos.push(pedido);
+  salvarPedidosRegistrados(pedidos);
+}
+
+function abrirAdminLogin() {
+  const modal = getEl("adminModal");
+  if (!modal) return;
+  modal.style.display = "flex";
+  modal.setAttribute("aria-hidden", "false");
+  if (localStorage.getItem("acaiAdminLogado") === "sim") {
+    mostrarPainelAdmin();
+  } else {
+    mostrarLoginAdmin();
+  }
+}
+
+function fecharAdmin() {
+  const modal = getEl("adminModal");
+  if (modal) {
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+  }
+}
+
+function mostrarLoginAdmin() {
+  const loginArea = getEl("adminLoginArea");
+  const panelArea = getEl("adminPanelArea");
+  if (loginArea) loginArea.style.display = "block";
+  if (panelArea) panelArea.style.display = "none";
+}
+
+function mostrarPainelAdmin() {
+  const loginArea = getEl("adminLoginArea");
+  const panelArea = getEl("adminPanelArea");
+  if (loginArea) loginArea.style.display = "none";
+  if (panelArea) panelArea.style.display = "block";
+  renderAdminReports();
+}
+
+function fazerLoginAdmin() {
+  const email = (getEl("adminEmail")?.value || "").trim().toLowerCase();
+  const senha = getEl("adminSenha")?.value || "";
+
+  if (email === ADMIN_LOGIN.email && senha === ADMIN_LOGIN.senha) {
+    localStorage.setItem("acaiAdminLogado", "sim");
+    mostrarPainelAdmin();
+  } else {
+    alert("Login de admin incorreto. Use o login teste informado no painel.");
+  }
+}
+
+function sairAdmin() {
+  localStorage.removeItem("acaiAdminLogado");
+  mostrarLoginAdmin();
+}
+
+function contarPagamentos(pedidos) {
+  return pedidos.reduce((acc, pedido) => {
+    const metodo = pedido.formaPagamento || "Não informado";
+    acc[metodo] = (acc[metodo] || 0) + 1;
+    return acc;
+  }, {});
+}
+
+function renderAdminReports() {
+  const clientes = getClientesCadastrados();
+  const pedidos = getPedidosRegistrados();
+  const resumo = getEl("adminResumo");
+  const clienteBody = getEl("clienteReportBody");
+  const pedidoBody = getEl("pedidoReportBody");
+
+  const receita = pedidos.reduce((sum, pedido) => sum + Number(pedido.total || 0), 0);
+  const pagamentos = contarPagamentos(pedidos);
+  const pagamentosTexto = Object.entries(pagamentos)
+    .map(([metodo, qtd]) => `${escapeHTML(metodo)}: ${qtd}`)
+    .join("<br>") || "Nenhum pagamento registrado";
+
+  if (resumo) {
+    resumo.innerHTML = `
+      <div class="summary-card"><strong>${clientes.length}</strong><span>Clientes cadastrados</span></div>
+      <div class="summary-card"><strong>${pedidos.length}</strong><span>Pedidos enviados</span></div>
+      <div class="summary-card"><strong>${formatMoney(receita)}</strong><span>Total estimado</span></div>
+      <div class="summary-card"><strong>Pagamentos</strong><span>${pagamentosTexto}</span></div>
+    `;
+  }
+
+  if (clienteBody) {
+    if (clientes.length === 0) {
+      clienteBody.innerHTML = `<tr><td colspan="6">Nenhum cliente cadastrado neste navegador.</td></tr>`;
+    } else {
+      clienteBody.innerHTML = clientes.map(cliente => `
+        <tr>
+          <td>${escapeHTML(cliente.nome)}</td>
+          <td>${escapeHTML(cliente.telefone)}</td>
+          <td>${escapeHTML(cliente.email)}</td>
+          <td>${escapeHTML(cliente.endereco || "-")}</td>
+          <td>${escapeHTML(cliente.cidade || "-")}</td>
+          <td>${escapeHTML(cliente.cadastradoEm || "-")}</td>
+        </tr>
+      `).join("");
+    }
+  }
+
+  if (pedidoBody) {
+    if (pedidos.length === 0) {
+      pedidoBody.innerHTML = `<tr><td colspan="6">Nenhum pedido enviado neste navegador.</td></tr>`;
+    } else {
+      pedidoBody.innerHTML = pedidos.slice().reverse().map(pedido => {
+        const itensTexto = (pedido.itens || [])
+          .map(item => `${item.quantidade}x ${item.nome}`)
+          .join(", ");
+
+        return `
+          <tr>
+            <td>${escapeHTML(pedido.data)}</td>
+            <td>${escapeHTML(pedido.clienteNome)}</td>
+            <td>${escapeHTML(pedido.clienteTelefone)}</td>
+            <td>${escapeHTML(pedido.formaPagamento)}</td>
+            <td>${escapeHTML(itensTexto)}</td>
+            <td>${formatMoney(pedido.total || 0)}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+  }
+}
+
+function csvValue(value) {
+  const text = String(value ?? "").replaceAll('"', '""');
+  return `"${text}"`;
+}
+
+function baixarCSV(nomeArquivo, linhas) {
+  const conteudo = "\uFEFF" + linhas.map(linha => linha.map(csvValue).join(";")).join("\n");
+  const blob = new Blob([conteudo], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = nomeArquivo;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+function baixarRelatorioClientesCSV() {
+  const clientes = getClientesCadastrados();
+  const linhas = [["Nome", "WhatsApp", "E-mail", "Endereço", "Cidade/Estado", "Data do cadastro"]];
+  clientes.forEach(cliente => {
+    linhas.push([
+      cliente.nome || "",
+      cliente.telefone || "",
+      cliente.email || "",
+      cliente.endereco || "",
+      cliente.cidade || "",
+      cliente.cadastradoEm || ""
+    ]);
+  });
+  baixarCSV("relatorio-clientes-acai-da-praca.csv", linhas);
+}
+
+function baixarRelatorioPedidosCSV() {
+  const pedidos = getPedidosRegistrados();
+  const linhas = [["Data", "Cliente", "WhatsApp", "E-mail", "Cidade", "Forma de pagamento", "Itens", "Total", "Status"]];
+  pedidos.forEach(pedido => {
+    const itensTexto = (pedido.itens || [])
+      .map(item => `${item.quantidade}x ${item.nome} = ${formatMoney(item.subtotal || 0)}`)
+      .join(" | ");
+    linhas.push([
+      pedido.data || "",
+      pedido.clienteNome || "",
+      pedido.clienteTelefone || "",
+      pedido.clienteEmail || "",
+      pedido.clienteCidade || "",
+      pedido.formaPagamento || "",
+      itensTexto,
+      formatMoney(pedido.total || 0),
+      pedido.status || ""
+    ]);
+  });
+  baixarCSV("relatorio-pedidos-pagamentos-acai-da-praca.csv", linhas);
+}
+
+function limparRelatoriosPedidos() {
+  const confirmar = confirm("Tem certeza que deseja limpar todos os pedidos salvos neste navegador? Os clientes cadastrados não serão apagados.");
+  if (!confirmar) return;
+  salvarPedidosRegistrados([]);
+  renderAdminReports();
+}
+
+function configurarModalAdmin() {
+  const modal = getEl("adminModal");
+  if (!modal) return;
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) fecharAdmin();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") fecharAdmin();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderProducts();
   renderCart();
   atualizarBotaoLogin();
   configurarModalLogin();
+  configurarModalAdmin();
 
   const whatsHero = getEl("whatsHero");
   if (whatsHero) {

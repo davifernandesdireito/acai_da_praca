@@ -31,6 +31,7 @@
       <a href="#sobre">Sobre</a>
       <a href="#contato">Contato</a>
       <button class="login-btn" onclick="abrirLogin()">👤 Entrar</button>
+      <button class="admin-btn" onclick="abrirAdminLogin()">🔐 Admin</button>
       <button class="cart-button" onclick="toggleCart()">🛒 Carrinho <span id="cartCount">0</span></button>
     </nav>
   </header>
@@ -265,6 +266,83 @@
         <button type="button" class="modal-main-btn" onclick="cadastrarCliente()">Cadastrar e entrar</button>
         <button type="button" class="link-btn" onclick="mostrarAbaCliente('login')">Já tenho cadastro</button>
 
+        <small>
+          Cadastro demonstrativo para portfólio. Para loja real, use banco de dados seguro.
+        </small>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="adminModal" class="modal" aria-hidden="true">
+    <div class="modal-content admin-modal">
+      <span onclick="fecharAdmin()" class="fechar" aria-label="Fechar">&times;</span>
+
+      <div id="adminLoginArea" class="admin-login-area">
+        <h2>Login do Admin</h2>
+        <p>Entre para puxar relatório de clientes, pedidos e formas de pagamento.</p>
+
+        <input type="email" id="adminEmail" placeholder="E-mail do admin" autocomplete="username">
+        <input type="password" id="adminSenha" placeholder="Senha do admin" autocomplete="current-password">
+
+        <button type="button" class="modal-main-btn" onclick="fazerLoginAdmin()">Entrar no painel</button>
+      </div>
+
+      <div id="adminPanelArea" class="admin-panel-area">
+        <div class="admin-panel-header">
+          <div>
+            <h2>Painel Administrativo</h2>
+            <p>Relatório salvo neste navegador para portfólio.</p>
+          </div>
+          <button type="button" class="link-btn admin-exit-btn" onclick="sairAdmin()">Sair do admin</button>
+        </div>
+
+        <div id="adminResumo" class="admin-summary"></div>
+
+        <div class="admin-actions">
+          <button type="button" onclick="renderAdminReports()">Atualizar</button>
+          <button type="button" onclick="baixarRelatorioClientesCSV()">Baixar clientes CSV</button>
+          <button type="button" onclick="baixarRelatorioPedidosCSV()">Baixar pedidos CSV</button>
+          <button type="button" class="danger" onclick="limparRelatoriosPedidos()">Limpar pedidos</button>
+        </div>
+
+        <h3>Clientes cadastrados</h3>
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>WhatsApp</th>
+                <th>E-mail</th>
+                <th>Endereço</th>
+                <th>Cidade/Estado</th>
+                <th>Cadastro</th>
+              </tr>
+            </thead>
+            <tbody id="clienteReportBody"></tbody>
+          </table>
+        </div>
+
+        <h3>Pedidos e formas de pagamento</h3>
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Cliente</th>
+                <th>WhatsApp</th>
+                <th>Pagamento</th>
+                <th>Itens</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="pedidoReportBody"></tbody>
+          </table>
+        </div>
+
+        <small class="admin-note">
+          Observação: em site estático/GitHub, os relatórios ficam apenas no navegador. Para loja real com dados de todos os clientes, use banco de dados seguro.
+        </small>
       </div>
     </div>
   </div>

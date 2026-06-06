@@ -566,3 +566,103 @@ input,textarea,select{
   .quote-form{grid-template-columns:1fr}
   .footer{flex-direction:column}
 }
+
+.login-btn {
+  background: #ffcc00;
+  color: #26002f;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 18px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content h2 {
+  color: #3b0057;
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  color: #444;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 14px;
+  background: #5c0a7a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-content small {
+  display: block;
+  margin-top: 12px;
+  color: #555;
+}
+
+.fechar {
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+  color: #3b0057;
+}
+
+.pagamento-box {
+  background: #f7f0ff;
+  border: 2px solid #5c0a7a;
+  padding: 16px;
+  border-radius: 16px;
+  margin: 16px 0;
+  color: #26002f;
+}
+
+.pagamento-box h3 {
+  color: #3b0057;
+  margin-bottom: 10px;
+}
+
+.pagamento-box label {
+  display: block;
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+.pix-demo {
+  background: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}

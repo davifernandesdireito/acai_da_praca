@@ -230,24 +230,51 @@
     </div>
   </footer>
 
-  <div id="loginModal" class="modal">
-  <div class="modal-content">
-    <span onclick="fecharLogin()" class="fechar">&times;</span>
+  <div id="loginModal" class="modal" aria-hidden="true">
+    <div class="modal-content cliente-modal">
+      <span onclick="fecharLogin()" class="fechar" aria-label="Fechar">&times;</span>
 
-    <h2>Área do Cliente</h2>
-    <p>Entre para acompanhar seus pedidos.</p>
+      <div class="cliente-tabs">
+        <button type="button" id="tabLoginBtn" class="tab-btn active" onclick="mostrarAbaCliente('login')">Entrar</button>
+        <button type="button" id="tabCadastroBtn" class="tab-btn" onclick="mostrarAbaCliente('cadastro')">Cadastrar cliente</button>
+      </div>
 
-    <input type="email" id="emailLogin" placeholder="E-mail">
-    <input type="password" id="senhaLogin" placeholder="Senha">
+      <div id="loginArea" class="cliente-area active">
+        <h2>Área do Cliente</h2>
+        <p>Entre para acompanhar seus pedidos e enviar seus dados no WhatsApp.</p>
 
-    <button onclick="fazerLogin()">Entrar</button>
+        <input type="email" id="emailLogin" placeholder="E-mail" autocomplete="email">
+        <input type="password" id="senhaLogin" placeholder="Senha" autocomplete="current-password">
 
-    <small>
-      Login teste: cliente@acaidapraca.com | Senha: 123456
-    </small>
+        <button type="button" class="modal-main-btn" onclick="fazerLogin()">Entrar</button>
+        <button type="button" class="link-btn" onclick="mostrarAbaCliente('cadastro')">Ainda não tenho cadastro</button>
+
+        <small>
+          Login teste: cliente@acaidapraca.com | Senha: 123456
+        </small>
+      </div>
+
+      <div id="cadastroArea" class="cliente-area">
+        <h2>Cadastrar Cliente</h2>
+        <p>Preencha seus dados para agilizar o pedido pelo WhatsApp.</p>
+
+        <input type="text" id="cadastroNome" placeholder="Nome completo" autocomplete="name">
+        <input type="tel" id="cadastroTelefone" placeholder="WhatsApp" autocomplete="tel">
+        <input type="email" id="cadastroEmail" placeholder="E-mail" autocomplete="email">
+        <input type="password" id="cadastroSenha" placeholder="Criar senha" autocomplete="new-password">
+        <input type="text" id="cadastroEndereco" placeholder="Endereço de entrega" autocomplete="street-address">
+        <input type="text" id="cadastroCidade" placeholder="Cidade/Estado" autocomplete="address-level2">
+
+        <button type="button" class="modal-main-btn" onclick="cadastrarCliente()">Cadastrar e entrar</button>
+        <button type="button" class="link-btn" onclick="mostrarAbaCliente('login')">Já tenho cadastro</button>
+
+        <small>
+          Cadastro demonstrativo para portfólio. Para loja real, use banco de dados seguro.
+        </small>
+      </div>
+    </div>
   </div>
-</div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -666,3 +666,109 @@ input,textarea,select{
   border-radius: 10px;
   margin-top: 12px;
 }
+
+
+/* ==============================
+   CORREÇÕES: PAGAMENTO + CADASTRO
+   ============================== */
+.pagamento-box label {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 10px 0;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.pagamento-box input[type="radio"] {
+  width: auto !important;
+  min-width: 18px;
+  height: 18px;
+  margin: 0;
+  flex: 0 0 auto;
+  accent-color: #5c0a7a;
+}
+
+.cliente-modal {
+  max-width: 460px;
+  position: relative;
+  color: #26002f;
+}
+
+.cliente-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: #f2e7ff;
+  padding: 6px;
+  border-radius: 999px;
+  margin: 10px 0 20px;
+}
+
+.modal-content .tab-btn {
+  width: 100%;
+  padding: 11px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #3b0057;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.modal-content .tab-btn.active {
+  background: linear-gradient(135deg, #5c0a7a, #2b003d);
+  color: #fff;
+}
+
+.cliente-area {
+  display: none;
+}
+
+.cliente-area.active {
+  display: block;
+}
+
+.modal-content .modal-main-btn {
+  width: 100%;
+  padding: 14px;
+  background: #5c0a7a;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.modal-content .link-btn {
+  width: 100%;
+  background: transparent;
+  color: #5c0a7a;
+  border: 0;
+  padding: 12px;
+  margin-top: 6px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.modal-content input[type="email"],
+.modal-content input[type="password"],
+.modal-content input[type="text"],
+.modal-content input[type="tel"] {
+  width: 100%;
+  padding: 14px;
+  margin: 7px 0;
+  border-radius: 12px;
+  border: 1px solid #d4c0df;
+}
+
+.fechar {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  float: none;
+  font-size: 30px;
+  line-height: 1;
+}
